@@ -10,6 +10,7 @@ Cada seção apresenta um exemplo prático, com base no portal do Azure e ferram
 - [✅ MongoDB API](./mongodb/README.md)
 - [✅ Cassandra API](./cassandra/README.md)
 - [✅ Table API](./table/README.md)
+- [✅ Gremlin API](./gremlin/README.md)
 
 ---
 
