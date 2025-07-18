@@ -121,11 +121,12 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Grem
 ### 8. Deletando via Gremlin Queryuma Row
 
 - Para deletar via Query, digite
-  ```gremlin
-g.V().has('name', 'Programador Back-End').drop()
+```gremlin
+   g.V().has('name', 'Programador Back-End').drop()
 ```
 - Clique em **Execute Gremlin Query**
 - Clique em **JSON**
+
 > Para deleções mais específicas, utilize filtros com hasLabel ou has. Exemplos:
 > - g.V().drop() **Deleta todos os vértices do grafo.**
 > - g.V().hasLabel('curso').drop() **Deleta todos os vértices com o label 'curso'**
