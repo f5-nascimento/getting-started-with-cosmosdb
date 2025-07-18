@@ -44,52 +44,88 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Grem
 
 ---
 
-### 3. Criando Keyspace e Tabela no Data Explorer
+### 3. Criando um Graph
 
 <img width="1914" height="955" alt="gremlin-grpho" src="https://github.com/user-attachments/assets/3e98b8a1-1a82-4b3f-9be4-14bebec3d5b5" />
 
-
 - Após a implantação, clique em **Ir para o recursos**.
 - No menu lateral, clique em **Data Explorer**
-- Clique em **New Table**
+- Clique em **New Graph**
 - **Database id**: selecione `Create new` se for o primeiro keyspace ou `Use existing` caso já possua algum.
 - Digite um nome para o Database id (ex: `regencia`).
 - **Graph id**: defina um **Graph id** para a tabela (ex: `cursos`).
-- **Partition key**: defina um **Partirion Key** para a tabela (ex: `id`).
+- **Partition key**: defina um **Partirion Key** para a tabela (ex: `segmento`).
 - Clique em **OK**
 > 💡 **Observação:**
-> - **Database ID**: é o nome do **banco de dados lógico** que armazenará os grafos criados. Você pode reutilizar um `Database ID` existente ou criar um novo.
-> - **Graph ID**: corresponde ao nome do **grafo**, onde os dados (vértices e arestas) serão inseridos. Funciona como uma "tabela" dentro do banco.
-> - **Partition Key**: é uma **propriedade dos documentos** (vértices ou arestas) usada para distribuir os dados entre partições internas do Cosmos DB, melhorando a escalabilidade. Exemplo comum: `/id` ou outro campo exclusivo que exista nos seus dados.
-> - ⚠️ Certifique-se de que todos os documentos que você inserir tenham o campo definido como chave de partição, senão a inserção falhará.
+> - **Database ID**: é o nome do **banco de dados lógico** que armazenará os grafos criados.
+> - **Graph ID**: é o nome do **grafo**, onde você armazenará os vértices e arestas.
+> - **Partition Key**: é uma propriedade dos seus dados que será usada como chave de partição. **Evite usar** `/id` e `/label`, pois não são permitidos pela API Gremlin.
+> - ➕ Use uma propriedade personalizada como `/categoria`, `/tipo`, `/grupo`, ou qualquer outro campo exclusivo presente nos dados do grafo.
 
 ---
 
-### 4. Inserindo uma Row
+### 4. Inserindo um Graph
 
-<img width="1910" height="953" alt="cassandrinha" src="https://github.com/user-attachments/assets/fbc1c131-778b-4e5d-ad6f-d2c0cbfc160d" />
+<img width="1652" height="849" alt="gremlin-insert" src="https://github.com/user-attachments/assets/eae474c8-d619-4c90-9777-812833f8731e" />
 
-- Clique no seu keyspace (ex. `regencia`)
-- Clique na sua tabela (ex. `cursos`)
-- Clique em **Add Row**
-- Em **Add Table Row**, na coluna **Value** para respectivos valores para cada `Property Name` 
-- Clique em **Add Row**
+- Clique no **New Vertex**
+- Em **New Vertex**, defina um **Value** para o `Label`:
+- **Key**: defina um **Value** para a sua principal `Key` (ex: ´segmento´ → ´Qualificação´):
+- Clique em **+ Add Property** para adicionar novos campos personalizados, por exemplo:  
+   - `name` → `Programação Back-End` → `string`
+   - `carga_horaria` → `80` → `number`
+- Clique em **OK**
   
 ---
 
-### 5. Atualizando uma Row
+### 5. Inserindo via Gremlin Query
 
-<img width="1678" height="886" alt="update cassandra" src="https://github.com/user-attachments/assets/3a19a5c3-b8c0-4d7c-897a-268d5d4c1ad9" />
-
-- Selecione a Row que deseja atualizar e clique em **Edit Row**
-- Na Tela **Edit Table Entity** altere o `Value` que deseja
-- Clique em **Update**
-- Clique em **Run Query**
+<img width="1641" height="751" alt="gremlin-insert2" src="https://github.com/user-attachments/assets/c5f43bdb-6e61-4633-8da0-66d431b7fd6b" />
 
 
-### 6. Deletando uma Row
+- Para adicionar via Query, digite
+  ```gremlin
+  g.addV('curso').property('segmento', 'Qualificação').property('nome', 'Programador Front-End').property('carga_horaria', 100)
+  ```
+- Clique em **Execute Gremlin Query**
+- Clique em **JSON**
+  
+---
 
-- Selecione a Row que deseja atualizar e clique em **Delete Rows**
-- Na caixa de confirmação, clique em **Delete**
-- Clique em **Run Query**
+### 6. Consultando via Gremlin Query
 
+- Para consultar todos os vértices, digite:
+  ```gremlin
+  g.V()
+  ```
+- Clique em **Execute Gremlin Query**
+> Para consultas mais específicas, utilize filtros com hasLabel ou has. Exemplos:
+> - g.V().hasLabel('curso')  **Retorna todos os vértices com o label 'curso'**
+> - g.V().has('segmento', 'Qualificação') **Retorna vértices com a propriedade segmento igual a 'Qualificação'**
+> - g.V().has('carga_horaria', 80) **Retorna vértices com carga_horaria igual a 80**
+
+
+---
+
+### 7. Atualizando via Gremlin Query
+
+- Para atualziar via Query, digite
+  ```gremlin
+   g.V().has('name', 'Programador Back-End').property('carga_horaria', 200)
+  ```
+- Clique em **Execute Gremlin Query**
+- Clique em **JSON**
+
+---
+
+### 8. Deletando via Gremlin Queryuma Row
+
+- Para deletar via Query, digite
+  ```gremlin
+g.V().has('name', 'Programador Back-End').drop()
+```
+- Clique em **Execute Gremlin Query**
+- Clique em **JSON**
+> Para deleções mais específicas, utilize filtros com hasLabel ou has. Exemplos:
+> - g.V().drop() **Deleta todos os vértices do grafo.**
+> - g.V().hasLabel('curso').drop() **Deleta todos os vértices com o label 'curso'**
