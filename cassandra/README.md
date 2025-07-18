@@ -4,7 +4,20 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Cass
 
 ---
 
-## 1. Criando a Instância do Cosmos DB com API Cassandra
+## ✅ Pré-requisitos
+
+- Conta no [Azure](https://portal.azure.com/)
+---
+
+## 🧭 Etapas do tutorial
+
+### 1. Acesse o Portal do Azure
+- Acesse: [https://portal.azure.com](https://portal.azure.com)
+- Faça login com sua conta Microsoft.
+
+---
+
+### 2. Criando a Instância do Cosmos DB com API Cassandra
 
 <img width="1128" height="381" alt="cosmodb" src="https://github.com/user-attachments/assets/2e1efc58-a5bf-45f2-9274-f99f11b101f3" />
 
@@ -35,7 +48,7 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Cass
 
 ---
 
-## 3. Criando Keyspace e Tabela no Data Explorer
+### 3. Criando Keyspace e Tabela no Data Explorer
 
 1. Após a implantação, vá até o recurso criado
 2. No menu lateral, clique em **Data Explorer**
@@ -49,7 +62,7 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Cass
 
 ---
 
-## 4. Inserindo Dados
+### 4. Inserindo Dados
 
 - Clique na **tabela `alunos`** dentro do keyspace `escola`
 - Vá em **Items**
@@ -76,5 +89,5 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Cass
 }
 ```
 
-## 🔍 5. Visualizando os Dados
+### 5. Visualizando os Dados
 - Clique em Items para visualizar todos os registros salvos na tabela alunos.
