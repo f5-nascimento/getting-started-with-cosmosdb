@@ -50,44 +50,51 @@ Este tutorial mostra como criar uma instância do **Azure Cosmos DB com API Cass
 
 ### 3. Criando Keyspace e Tabela no Data Explorer
 
-1. Após a implantação, vá até o recurso criado
-2. No menu lateral, clique em **Data Explorer**
-3. Clique em **+ New Keyspace**
-   - **Keyspace id**: `escola` (exemplo)
-   - Clique em **OK**
-4. Após o keyspace ser criado, clique em **+ New Table**
-   - **Table id**: `alunos`
-   - **Partition key**: `id`
-   - Clique em **OK**
+<img width="1910" height="953" alt="cassandrinha" src="https://github.com/user-attachments/assets/f2ef01d7-e343-4ab6-8105-1fae8b47ed0d" />
+
+
+- Após a implantação, clique em **Ir para o recursos**.
+- No menu lateral, clique em **Data Explorer**
+- Clique em **New Table** ou **+ Add Table**
+- **Keyspace name**: selecione `Create new` se for o primeiro keyspace ou `Use existing` caso já possua algum.
+- Digite um nome para o keyspace (ex: `regencia`).
+- **CREATE TABLE**: defina um **table id** para a tabela (ex: `cursos`).
+- Insira o código CQL (Cassandra Query Language), exemplo:
+```cassandra
+ (id int, name text, carga_horaria int, segmento text, PRIMARY KEY (id))
+```
+- Clique em **OK**
+> 💡 Observação:
+> O Keyspace name funciona como um "banco de dados lógico" no Cassandra, e deve ser único por instância.
+> O campo Table id é o nome da sua tabela.
+> O código inserido deve seguir a sintaxe do CQL, a linguagem usada para definir tabelas e manipular dados no Cassandra.
 
 ---
 
-### 4. Inserindo Dados
+### 4. Inserindo uma Row
 
-- Clique na **tabela `alunos`** dentro do keyspace `escola`
-- Vá em **Items**
-- Clique em **+ New Item**
-- Cole o seguinte conteúdo JSON:
+<img width="1910" height="953" alt="cassandrinha" src="https://github.com/user-attachments/assets/fbc1c131-778b-4e5d-ad6f-d2c0cbfc160d" />
 
-```json
-{
-  "id": "1",
-  "nome": "Carla",
-  "idade": 20,
-  "curso": "TI"
-}
-```
-- Clique em Save
-- Repita com outro item se desejar:
+- Clique no seu keyspace (ex. `regencia`)
+- Clique na sua tabela (ex. `cursos`)
+- Clique em **Add Row**
+- Em **Add Table Row**, na coluna **Value** para respectivos valores para cada `Property Name` 
+- Clique em **Add Row**
+  
+---
 
-```json
-{
-  "id": "2",
-  "nome": "Lucas",
-  "idade": 22,
-  "curso": "Administração"
-}
-```
+### 5. Atualizando uma Row
 
-### 5. Visualizando os Dados
-- Clique em Items para visualizar todos os registros salvos na tabela alunos.
+<img width="1678" height="886" alt="update cassandra" src="https://github.com/user-attachments/assets/3a19a5c3-b8c0-4d7c-897a-268d5d4c1ad9" />
+
+- Selecione a Row que deseja atualizar e clique em **Edit Row**
+- Na Tela **Edit Table Entity** altere o `Value` que deseja
+- Clique em **Update**
+- Clique em **Run Query**
+
+
+### 6. Deletando uma Row
+
+- Selecione a Row que deseja atualizar e clique em **Delete Rows**
+- Na caixa de confirmação, clique em **Delete**
+- Clique em **Run Query**
