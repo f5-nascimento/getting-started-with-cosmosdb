@@ -187,3 +187,121 @@ mongo_uri = "mongodb://mongodb-255:Cole aqui o valord do seu PRIMARY PASSWORD@mo
 - Clique em **Ligar**
 - Selecione a opção **Servless**
 - Clique em **Executar célula**
+
+
+## 10. Operações CRUD com pymongo
+- Inserir um novo documento
+```python
+documento = {
+        "nome": "Programador Front-End",
+        "carga_horaria": 80,
+        "segmento": "Qualificação"
+    }
+db.cursos.insert_one(documento)
+print(documento["nome"],"inserido com sucesso")
+```
+- Inserir múltiplos documentos
+```python
+documentos = [
+    {
+        "nome": "Administrador de Banco de Dados",
+        "carga_horaria": 80,
+        "segmento": "Qualificação"
+
+    },
+    {
+        "nome": "Assistente Administrativo",
+        "carga_horaria": 300,
+        "segmento": "Aprendizagem"
+
+    },
+    {
+        "nome": "Operador de Suporte de TI",
+        "carga_horaria": 300,
+        "segmento": "Aprendizagem"
+
+    },
+    {
+        "nome": "IA900",
+        "carga_horaria": 40,
+        "segmento": "Especializado"
+
+    }
+    ]
+
+db.cursos.insert_many(documentos)
+print(len(documentos), "cursos inseridos com sucesso")
+```
+- Consultando documentos
+```python
+documentos = db.cursos.find({"segmento": "Qualificação"})
+
+for documento in documentos:
+    print(documento)
+```
+- Consultando todos os documentos
+```python
+documentos = db.cursos.find()
+
+for documento in documentos:
+    print(documento)
+```
+
+- Atualizar um documento
+```python
+documento = {
+    "nome":"Microsoft IA900"
+}
+
+db.cursos.update_one(
+    {"nome":"IA900"},
+    {"$set":documento}
+    )
+print(documento["nome"], "atualizado com sucesso")
+
+```
+
+- Atualizar vários documentos 
+```python
+documento = {
+    "carga_horaria":1200
+}
+
+db.cursos.update_many(
+    { "carga_horaria":300},
+    {"$set":documento}
+    )
+
+documentos = db.cursos.find({"carga_horaria":1200})
+
+for doc in documentos:
+    print(cursos)
+
+```
+
+- Atualizar todos documentos 
+```python
+db.cursos.update_many(
+    {},
+    {"$set":{"carga_horaria":300}}
+)
+```
+
+- Deletar um documento
+```python
+documento = db.cursos.delete_one({"nome": "Programador Front-End"})
+```
+
+- Deletar vários documentos 
+```python
+documentos = db.cursos.delete_many({"segmento": "Especializado"})
+print(documentos.deleted_count, "apagados com sucesso")
+```
+
+- Deletar todos documentos 
+```python
+db.cursos.delete_many({})
+```
+
+
+
